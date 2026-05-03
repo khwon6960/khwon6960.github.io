@@ -1,5 +1,5 @@
-const author = ”이상”;
-const title = ”날개”;
+const author = "이상";
+const title = "날개";
 const year = 1936;
 
 console.log(`${author}의 「${title}」는 ${year}년 작품이다.`);
