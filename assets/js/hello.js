@@ -1,9 +1,6 @@
-// assets/js/hello.js
-const writer = "김효원";
-const major = "언어학";
-const openYear = 2026;
+const author = ”이상”;
+const title = ”날개”;
+const year = 1936;
 
-const greeting = `안녕하세요! ${writer}(${major} 전공)의 사이트입니다.
-이 사이트는 ${openYear}년에 개설되었습니다.`;
-
-console.log(greeting);
+console.log(`${author}의 「${title}」는 ${year}년 작품이다.`);
+console.log(`발표된 지 ${2026- year}년이 지났다.`);
