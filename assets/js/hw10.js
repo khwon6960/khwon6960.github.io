@@ -37,7 +37,7 @@ for (let i = 0; i < long.length; i++) {
 }
 
 // Q3
-function contChar(text, target) {
+function countChar(text, target) {
     let count = 0;
 
     for (const ch of text) {
@@ -62,7 +62,7 @@ console.log(`"${text2}"에서 '${target2}'는 ${countChar(text2, target2)}번 �
 console.log(`"${text3}"에서 '${target3}'는 ${countChar(text3, target3)}번 등장합니다.`);
 
 // Q4
-function contChar(text, target) {
+function countChar(text, target) {
     let count = 0;
 
     for (const ch of text) {
