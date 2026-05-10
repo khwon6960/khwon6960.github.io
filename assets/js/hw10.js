@@ -61,7 +61,7 @@ console.log(`"${text1}"에서 '${target1}'는 ${countChar(text1, target1)}번 �
 console.log(`"${text2}"에서 '${target2}'는 ${countChar(text2, target2)}번 등장합니다.`);
 console.log(`"${text3}"에서 '${target3}'는 ${countChar(text3, target3)}번 등장합니다.`);
 
-// Q4
+// Q4 https://chatgpt.com/share/6a0028b5-0704-8324-864e-d05a7688905a ChatGPT 활용
 function countChar(text, target) {
     let count = 0;
 
