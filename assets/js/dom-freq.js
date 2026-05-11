@@ -19,3 +19,13 @@ for (let i = 0; i < targets.length; i++) {
     li.textContent = `'${targets[i]}': ${counts[i]}번`;
     list.appendChild(li);
 }
+
+let maxIdx = 0;
+for (let i = 1; i < counts.length; i++) {
+    if (counts[i] > counts[maxIdx]) maxIdx = i;
+}
+
+const topChar = document.querySelector("#top-char");
+topChar.textContent = `가장 자주 나온 글자: ${targets[maxIdx]} (${counts[maxIdx]}번)`;
+topChar.style.fontWeight = "bold";
+topChar.style.color = "crimson";
