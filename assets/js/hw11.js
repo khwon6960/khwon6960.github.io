@@ -17,7 +17,7 @@ themeBtn.addEventListener("click", (click) => {
 
 // Q2
 const input = document.querySelector("#q2-input");
-const count = document.querySelector("q2-count");
+const count = document.querySelector("#q2-count");
 const warn = document.querySelector("#q2-warn");
 
 input.addEventListener("input", (e) => {
