@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 시인펼 작품 편수
+title: 시인별 작품 편수
 permalink: /poems-chart/
 ---
 

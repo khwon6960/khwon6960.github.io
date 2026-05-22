@@ -10,7 +10,7 @@ fetch("/data/poems.csv")
                 return {
                     year: Number(cols[0]),
                     author: cols[1].trim(),
-                    count: Number(cols[2])
+                    count: Number(cols[2]),
                 };
             });
             drawChart(data);
@@ -25,7 +25,7 @@ function drawChart(rows) {
         type: "bar",
         data: {
             labels: labels,
-            datasets: [{label: "작품 편수", data: counts}]
-        }
+            datasets: [{label: "작품 편수", data: counts}],
+        },
     });
 };
