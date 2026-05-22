@@ -2,7 +2,7 @@ fetch("/data/poems.csv")
     .then(response => response.text())
     .then(csv => {
         const data = csv
-            .split("/n") // 줄바꿈 문자로 행별로 분할
+            .split("\n") // 줄바꿈 문자로 행별로 분할
             .slice(1) // 0번 행(헤더)는 버림
             .filter(line => line.trim() !== "")
             .map(line => {
