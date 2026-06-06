@@ -10,3 +10,5 @@ header-pages:
   - about.md
   - projects.md
   - books.md
+  - compare.md
+  - analyzer.md
