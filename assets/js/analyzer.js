@@ -3,7 +3,7 @@
 // 페이지가 열리자마자 불용어 파일을 미리 받아 둔다.
 const stopwordsPromise = fetch("/data/stopwords-en.txt")
     .then(r => r.text())
-    .then(text => text.split(/\+s/).filter(w => w.length > 0));
+    .then(text => text.split(/\s+/).filter(w => w.length > 0));
 
 // 차트 객체를 기억해 두는 변수.
 let resultChart = null;
