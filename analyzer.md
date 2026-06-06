@@ -9,6 +9,7 @@ permalink: /analyzer/
 
 <textarea id="input-text" rows="10" style="width: 100%;" placeholder="여기에 영어 텍스트를 붙여 넣으세요..."></textarea>
 <button id="analyze-btn" style="margin: 0.5em 0; padding: 0.4em 1em;">
+    분석
 </button>
 
 <div style="height: 600px;">
