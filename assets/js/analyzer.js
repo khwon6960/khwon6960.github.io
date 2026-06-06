@@ -11,7 +11,7 @@ let resultChart = null;
 const button = document.querySelector("#analyze-btn");
 
 button.addEventListener("click", () => {
-    const text = document.querySelector("#input-text").ariaValueMax;
+    const text = document.querySelector("#input-text").value;
     stopwordsPromise.then(stopwords => {
         const words = getWords(text);
         const cleaned = removeStopwords(words, stopwords);
