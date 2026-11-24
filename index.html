@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MONG — Grooming Study</title>
+  <meta name="description" content="A quiet visual study of grooming, texture, and trust.">
+  <style>
+    ::selection { background: #ffdd58; color: #191919; }
+    :root {
+      --ink: #171717;
+      --paper: #f4f1e8;
+      --acid: #ffde59;
+      --line: rgba(23,23,23,.18);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+
+    nav {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .brand { font-size: 18px; letter-spacing: -.04em; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { position: relative; }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 100%; bottom: -5px;
+      height: 2px; background: var(--ink);
+      transition: right .25s ease;
+    }
+    .nav-links a:hover::after { right: 0; }
+
+    .hero {
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      align-items: center;
+      gap: 40px;
+      padding: 56px 0 64px;
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 38px; height: 3px; background: var(--ink); }
+    h1 {
+      max-width: 620px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(72px, 9vw, 132px);
+      font-weight: 400;
+      line-height: .78;
+      letter-spacing: -.075em;
+    }
+    h1 em { display: block; margin-left: 22%; font-weight: 400; }
+    .hero-copy {
+      max-width: 430px;
+      margin: 34px 0 0 5px;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    .hero-image {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+      border-radius: 2px;
+      background: #ddd;
+    }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 58%; }
+    .hero-image::after {
+      content: "01";
+      position: absolute;
+      right: 18px; bottom: 12px;
+      color: white;
+      font-family: Georgia, serif;
+      font-size: 36px;
+      font-style: italic;
+      text-shadow: 0 2px 18px rgba(0,0,0,.35);
+    }
+
+    .compare-section { padding: 72px 0 96px; border-top: 1px solid var(--line); }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 26px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: clamp(44px, 6vw, 74px);
+      font-weight: 400;
+      letter-spacing: -.055em;
+    }
+    .section-head p {
+      margin: 0 0 8px;
+      color: #68675f;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .comparison {
+      --position: 50%;
+      position: relative;
+      height: min(66vw, 720px);
+      max-height: 720px;
+      overflow: hidden;
+      border-radius: 3px;
+      background: #ddd;
+      cursor: ew-resize;
+      user-select: none;
+      touch-action: pan-y;
+    }
+    .comparison img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+    .comparison .before { clip-path: inset(0 var(--position) 0 0); }
+    .comparison .after { clip-path: inset(0 0 0 var(--position)); }
+    .comparison-line {
+      position: absolute;
+      left: var(--position);
+      top: 0; bottom: 0;
+      width: 2px;
+      background: white;
+      transform: translateX(-1px);
+      box-shadow: 0 0 20px rgba(0,0,0,.12);
+    }
+    .comparison-knob {
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 62px; height: 62px;
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      border: 2px solid white;
+      border-radius: 50%;
+      background: var(--acid);
+      color: var(--ink);
+      font-size: 18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.16);
+    }
+    .comparison-knob::before { content: "← →"; white-space: nowrap; letter-spacing: 5px; padding-left: 5px; }
+    .label {
+      position: absolute;
+      top: 18px;
+      z-index: 3;
+      padding: 9px 12px 8px;
+      border-radius: 2px;
+      background: white;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .label.before-label { left: 18px; }
+    .label.after-label { right: 18px; }
+    .comparison input {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      width: 100%;
+      opacity: 0;
+      cursor: ew-resize;
+    }
+
+    .story { padding: 96px 0 110px; background: var(--ink); color: var(--paper); }
+    .story-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 60px; }
+    .story-title { font-size: 11px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+    .story-title span { color: var(--acid); }
+    .gallery-controls {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .gallery-controls button {
+      padding: 10px 12px;
+      border: 1px solid rgba(244,241,232,.4);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--paper);
+      font: inherit;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .gallery-controls button:hover,
+    .gallery-controls button[aria-pressed="true"] {
+      border-color: var(--acid);
+      background: var(--acid);
+      color: var(--ink);
+    }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { margin: 0; }
+    .card-image { height: 360px; overflow: hidden; background: #2a2a2a; }
+    .card:nth-child(2) { transform: translateY(38px); }
+    .card:nth-child(3) { transform: translateY(76px); }
+    .card img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s ease; }
+    .card:hover img { transform: scale(1.025); }
+    .card figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 12px; padding-top: 12px; font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
+    .card figcaption span:nth-child(2), .card figcaption span:last-child { color: #aaa79d; }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 130px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 800px) {
+      .shell { width: min(100% - 32px, 1180px); }
+      nav { height: 68px; }
+      .nav-links a:not(:last-child) { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 38px; padding: 48px 0 56px; }
+      h1 { font-size: clamp(68px, 21vw, 100px); }
+      h1 em { margin-left: 12%; }
+      .hero-copy { margin-top: 28px; }
+      .hero-image { height: 440px; }
+      .section-head { align-items: start; }
+      .section-head p { max-width: 130px; text-align: right; line-height: 1.5; }
+      .comparison { height: 118vw; max-height: 620px; }
+      .story { padding: 72px 0 90px; }
+      .story-grid { grid-template-columns: 1fr; gap: 32px; }
+      .cards { grid-template-columns: 1fr; gap: 36px; }
+      .card:nth-child(n) { transform: none; }
+      .card-image { height: 430px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <nav aria-label="Main navigation">
+      <a class="brand" href="#">MONG / 2026</a>
+      <div class="nav-links">
+        <a href="#study">Study</a>
+        <a href="#comparison">Compare</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div>
+        <div class="eyebrow">Grooming study — Seoul</div>
+        <h1 id="hero-title">Soft<em>focus.</em></h1>
+        <p class="hero-copy">A small portrait of texture, patience, and trust. Three quiet moments from a Pomeranian grooming session.</p>
+      </div>
+      <div class="hero-image">
+        <img src="assets/mong1.JPG" alt="A Pomeranian held carefully during grooming">
+      </div>
+    </section>
+
+    <section class="compare-section" id="comparison">
+      <div class="shell">
+        <div class="section-head">
+          <h2>Before / After</h2>
+          <p>Drag to compare</p>
+        </div>
+        <div class="comparison" id="comparisonSlider">
+          <img class="before" src="assets/mong1.JPG" alt="Before grooming">
+          <img class="after" src="assets/mong3.JPG" alt="After grooming">
+          <span class="label before-label">Before</span>
+          <span class="label after-label">After</span>
+          <div class="comparison-line"><div class="comparison-knob"></div></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Compare before and after">
+        </div>
+      </div>
+    </section>
+
+    <section class="story" id="study">
+      <div class="shell story-grid">
+        <div>
+          <div class="story-title"><span>02</span> / The session</div>
+          <div class="gallery-controls" aria-label="Sort photos">
+            <button type="button" id="sortByDate" aria-pressed="false">Sort by date</button>
+            <button type="button" id="sortByTitle" aria-pressed="false">Sort by title</button>
+          </div>
+        </div>
+        <div class="cards" id="projectCards" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <a href="#">MONG © 2026</a>
+    <a href="#top" id="top">Back to top ↑</a>
+  </footer>
+
+  <script>
+    const slider = document.querySelector("#comparisonSlider");
+    const range = slider.querySelector("input");
+    const projects = [
+      {
+        image: "assets/mong1.JPG",
+        alt: "Close-up of the Pomeranian during grooming",
+        step: "01",
+        title: "Handle",
+        category: "Care",
+        date: "2020-05-26"
+      },
+      {
+        image: "assets/mong2.JPG",
+        alt: "Pomeranian's full coat viewed from above",
+        step: "02",
+        title: "Shape",
+        category: "Texture",
+        date: "2020-05-25"
+      },
+      {
+        image: "assets/mong3.JPG",
+        alt: "Detailed close-up of the finished coat",
+        step: "03",
+        title: "Finish",
+        category: "Calm",
+        date: "2020-05-25"
+      }
+    ];
+
+    function updateComparison(value) {
+      slider.style.setProperty("--position", value + "%");
+    }
+
+    range.addEventListener("input", (event) => updateComparison(event.target.value));
+
+    function mergeSort(items, compare) {
+      if (items.length < 2) return items;
+
+      const middle = Math.floor(items.length / 2);
+      const left = mergeSort(items.slice(0, middle), compare);
+      const right = mergeSort(items.slice(middle), compare);
+      const sorted = [];
+      let leftIndex = 0;
+      let rightIndex = 0;
+
+      while (leftIndex < left.length && rightIndex < right.length) {
+        if (compare(left[leftIndex], right[rightIndex]) <= 0) {
+          sorted.push(left[leftIndex++]);
+        } else {
+          sorted.push(right[rightIndex++]);
+        }
+      }
+
+      return sorted.concat(left.slice(leftIndex), right.slice(rightIndex));
+    }
+
+    const cards = document.querySelector("#projectCards");
+    const dateButton = document.querySelector("#sortByDate");
+    const titleButton = document.querySelector("#sortByTitle");
+
+    function renderProjects(items) {
+      cards.innerHTML = items.map((project) => `
+        <figure class="card">
+          <div class="card-image"><img src="${project.image}" alt="${project.alt}"></div>
+          <figcaption>
+            <span>${project.step} — ${project.title}</span>
+            <span>${project.category}</span>
+            <span>${project.date.replaceAll("-", ".")}</span>
+          </figcaption>
+        </figure>
+      `).join("");
+    }
+
+    function sortProjects(compare, activeButton) {
+      renderProjects(mergeSort(projects, compare));
+      dateButton.setAttribute("aria-pressed", String(activeButton === dateButton));
+      titleButton.setAttribute("aria-pressed", String(activeButton === titleButton));
+    }
+
+    dateButton.addEventListener("click", () => {
+      sortProjects((a, b) => a.date.localeCompare(b.date), dateButton);
+    });
+
+    titleButton.addEventListener("click", () => {
+      sortProjects((a, b) => a.title.localeCompare(b.title), titleButton);
+    });
+
+    renderProjects(projects);
+  </script>
+</body>
+</html>
